@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 import AppShell from "@/components/layout/AppShell";
+import FlashNotice from "@/components/ui/FlashNotice";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function AppLayout({ children }) {
@@ -12,5 +14,12 @@ export default async function AppLayout({ children }) {
   const { data: isOwner } = await supabase.rpc("is_owner");
   if (!isOwner) redirect("/login");
 
-  return <AppShell>{children}</AppShell>;
+  return (
+    <AppShell>
+      <Suspense fallback={null}>
+        <FlashNotice />
+      </Suspense>
+      {children}
+    </AppShell>
+  );
 }
