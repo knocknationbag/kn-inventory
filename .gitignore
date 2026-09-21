@@ -1,0 +1,37 @@
+# dependencies
+node_modules/
+
+# next.js build output
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# secrets and local config (never commit; only .env.example is tracked)
+.env
+.env.*
+.env*.local
+!.env.example
+*.pem
+*.key
+
+# old reference application and design files (kept locally only)
+ref/
+
+# local tooling / AI assistant config
+.claude/
+.mcp.json
+
+# deployment / local temp
+.vercel/
+tmp/
+*.log
+npm-debug.log*
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp

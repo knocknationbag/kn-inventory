@@ -1,0 +1,19 @@
+import Header from "@/components/layout/Header";
+import MobileNav from "@/components/layout/MobileNav";
+import Sidebar from "@/components/layout/Sidebar";
+import SignOutButton from "@/components/layout/SignOutButton";
+
+export default function AppShell({ children }) {
+  return (
+    <div className="md:flex">
+      <Sidebar footer={<SignOutButton variant="sidebar" />} />
+      <div className="min-w-0 flex-1">
+        <Header />
+        <main className="mx-auto w-full max-w-7xl px-4 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-5 sm:px-6 md:pb-10 lg:px-8 2xl:max-w-[1600px]">
+          {children}
+        </main>
+      </div>
+      <MobileNav />
+    </div>
+  );
+}
