@@ -10,6 +10,10 @@ const NOTICES = {
   product_archived: "Product archived. It is hidden from lists but its history is kept.",
   product_restored: "Product restored.",
   product_deleted: "Product deleted.",
+  purchase_saved: "Purchase saved. Stock updated.",
+  purchase_deleted: "Purchase deleted. Stock updated.",
+  return_saved: "Return saved.",
+  return_deleted: "Return deleted.",
   list_saved: "Saved.",
   list_deleted: "Deleted.",
 };

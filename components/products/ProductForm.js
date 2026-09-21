@@ -1,19 +1,9 @@
 "use client";
 
 import { useActionState } from "react";
-import { useFormStatus } from "react-dom";
-import Button from "@/components/ui/Button";
 import { ComboField, TextField } from "@/components/ui/Field";
+import FormActions from "@/components/ui/FormActions";
 import Icon from "@/components/ui/Icon";
-
-function SaveButton({ label }) {
-  const { pending } = useFormStatus();
-  return (
-    <Button type="submit" variant="primary" size="lg" className="flex-1 md:flex-none md:min-w-40" disabled={pending}>
-      {pending ? "Saving..." : label}
-    </Button>
-  );
-}
 
 export default function ProductForm({ action, product, categories, suppliers, submitLabel, cancelHref }) {
   const [state, formAction] = useActionState(action, {});
@@ -77,12 +67,7 @@ export default function ProductForm({ action, product, categories, suppliers, su
         </div>
       </section>
 
-      <div className="sticky bottom-[calc(3.6rem+env(safe-area-inset-bottom))] z-10 -mx-4 flex gap-3 border-t border-line bg-canvas px-4 pb-9 pt-3 sm:mx-0 md:static md:border-0 md:bg-transparent md:p-0">
-        <Button href={cancelHref} variant="outline" size="lg" className="flex-1 md:flex-none">
-          Cancel
-        </Button>
-        <SaveButton label={submitLabel} />
-      </div>
+      <FormActions cancelHref={cancelHref} submitLabel={submitLabel} />
     </form>
   );
 }

@@ -22,6 +22,17 @@ function party(m) {
   return m.party || "-";
 }
 
+// Purchases and returns have their own screens; bills get theirs in the billing phase.
+function MovementLink({ m, children }) {
+  const href = m.kind === "purchase" ? `/purchases/${m.document_id}` : m.kind === "return" ? `/returns/${m.document_id}/edit` : null;
+  if (!href) return children;
+  return (
+    <Link href={href} className="underline decoration-line-strong underline-offset-4 hover:decoration-gold">
+      {children}
+    </Link>
+  );
+}
+
 function Qty({ value }) {
   return <span className={`font-semibold ${value > 0 ? "text-success" : "text-danger"}`}>{value > 0 ? `+${value}` : value}</span>;
 }
@@ -46,7 +57,7 @@ export default async function ProductDetailPage({ params, searchParams }) {
 
   const columns = [
     { key: "date", header: "Date", cell: (m) => formatDate(m.movement_date) },
-    { key: "kind", header: "Type", cell: (m) => KIND_LABEL[m.kind] },
+    { key: "kind", header: "Type", cell: (m) => <MovementLink m={m}>{KIND_LABEL[m.kind]}</MovementLink> },
     { key: "party", header: "Supplier / customer / reason", cell: party },
     { key: "qty", header: "Qty", align: "right", cell: (m) => <Qty value={m.quantity} /> },
     { key: "balance", header: "Balance after", align: "right", cell: (m) => <span className="font-bold">{formatNumber(m.balance_after)}</span> },
@@ -112,7 +123,9 @@ export default async function ProductDetailPage({ params, searchParams }) {
               <div className="rounded-2xl border border-line bg-surface p-4 shadow-card">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="font-semibold">{KIND_LABEL[m.kind]}</p>
+                    <p className="font-semibold">
+                      <MovementLink m={m}>{KIND_LABEL[m.kind]}</MovementLink>
+                    </p>
                     <p className="text-sm text-muted">{formatDate(m.movement_date)}</p>
                   </div>
                   <p className="text-xl">

@@ -76,6 +76,25 @@ export function FilterSelect({ param, label, options, allLabel }) {
   );
 }
 
+export function DateRange() {
+  const { update, searchParams } = useQueryUpdater();
+  const from = searchParams.get("from") ?? "";
+  const to = searchParams.get("to") ?? "";
+  const cls = `${inputClass} h-11`;
+  return (
+    <div className="grid grid-cols-2 gap-2">
+      <label className="block">
+        <span className="mb-1 block text-xs font-medium text-muted">From</span>
+        <input type="date" value={from} max={to || undefined} onChange={(e) => update({ from: e.target.value })} className={cls} />
+      </label>
+      <label className="block">
+        <span className="mb-1 block text-xs font-medium text-muted">To</span>
+        <input type="date" value={to} min={from || undefined} onChange={(e) => update({ to: e.target.value })} className={cls} />
+      </label>
+    </div>
+  );
+}
+
 export function ChipGroup({ param, label, options }) {
   const { update, searchParams } = useQueryUpdater();
   const current = searchParams.get(param) ?? "";

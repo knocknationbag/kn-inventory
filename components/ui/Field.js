@@ -1,9 +1,9 @@
 export const inputClass =
-  "h-12 w-full rounded-xl border border-line-strong bg-surface px-4 text-ink placeholder:text-muted focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/40 disabled:opacity-60 aria-[invalid=true]:border-danger";
+  "h-12 w-full min-w-0 rounded-xl border border-line-strong bg-surface px-4 text-ink placeholder:text-muted focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/40 disabled:opacity-60 aria-[invalid=true]:border-danger";
 
 export function Field({ label, id, error, hint, required, children }) {
   return (
-    <div>
+    <div className="min-w-0">
       <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-ink">
         {label}
         {required && <span className="text-danger"> *</span>}
