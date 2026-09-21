@@ -110,6 +110,23 @@
   }
 }
 
+/* Printing: A4 paper, white background, only the invoice (the app chrome uses print:hidden). */
+@page {
+  size: A4;
+  margin: 10mm;
+}
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

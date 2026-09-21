@@ -23,6 +23,8 @@ const PATHS = {
   eye: ["M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z", "M9 12a3 3 0 1 0 6 0 3 3 0 1 0-6 0"],
   eyeOff: ["M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z", "M9 12a3 3 0 1 0 6 0 3 3 0 1 0-6 0", "m3 3 18 18"],
   chevronRight: ["m9 6 6 6-6 6"],
+  printer: ["M6 9V3h12v6", "M6 18H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-2", "M6 14h12v7H6z"],
+  share: ["M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7", "m16 6-4-4-4 4", "M12 2v13"],
 };
 
 export default function Icon({ name, size = 22, strokeWidth = 1.75, className = "" }) {

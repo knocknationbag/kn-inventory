@@ -12,6 +12,8 @@ const NOTICES = {
   product_deleted: "Product deleted.",
   purchase_saved: "Purchase saved. Stock updated.",
   purchase_deleted: "Purchase deleted. Stock updated.",
+  bill_saved: "Bill saved. Stock updated.",
+  bill_deleted: "Bill deleted. Stock updated.",
   return_saved: "Return saved.",
   return_deleted: "Return deleted.",
   list_saved: "Saved.",

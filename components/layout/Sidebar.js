@@ -11,7 +11,7 @@ export default function Sidebar({ footer }) {
   const pathname = usePathname();
 
   return (
-    <aside className="sticky top-0 hidden h-dvh w-20 shrink-0 flex-col border-r border-line bg-surface px-3 py-5 md:flex lg:w-64 lg:px-4">
+    <aside className="sticky top-0 hidden h-dvh w-20 shrink-0 flex-col border-r border-line bg-surface px-3 py-5 md:flex lg:w-64 lg:px-4 print:hidden">
       <Link href="/" className="mb-6 flex h-10 items-center justify-center lg:justify-start lg:px-2" aria-label="Dashboard">
         <span className="hidden lg:block">
           <Logo className="h-8 w-auto" />

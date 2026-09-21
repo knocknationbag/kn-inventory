@@ -22,9 +22,14 @@ function party(m) {
   return m.party || "-";
 }
 
-// Purchases and returns have their own screens; bills get theirs in the billing phase.
+const MOVEMENT_HREF = {
+  purchase: (id) => `/purchases/${id}`,
+  sale: (id) => `/sales/${id}`,
+  return: (id) => `/returns/${id}/edit`,
+};
+
 function MovementLink({ m, children }) {
-  const href = m.kind === "purchase" ? `/purchases/${m.document_id}` : m.kind === "return" ? `/returns/${m.document_id}/edit` : null;
+  const href = MOVEMENT_HREF[m.kind]?.(m.document_id);
   if (!href) return children;
   return (
     <Link href={href} className="underline decoration-line-strong underline-offset-4 hover:decoration-gold">
