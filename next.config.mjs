@@ -11,6 +11,10 @@ const nextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+  experimental: {
+    // Legacy backup files (uploaded on the Import page) can run a few MB for a shop with years of history.
+    serverActions: { bodySizeLimit: "20mb" },
+  },
 };
 
 export default nextConfig;
