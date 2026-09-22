@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useTransition } from "react";
 import Icon from "@/components/ui/Icon";
 import { inputClass } from "@/components/ui/Field";
+import { PERIODS, periodRange } from "@/lib/dates";
 
 // Keeps list state (search, filters, sort, page) in the URL so it survives refresh and back/forward.
 function useQueryUpdater() {
@@ -91,6 +92,36 @@ export function DateRange() {
         <span className="mb-1 block text-xs font-medium text-muted">To</span>
         <input type="date" value={to} min={from || undefined} onChange={(e) => update({ to: e.target.value })} className={cls} />
       </label>
+    </div>
+  );
+}
+
+// Quick period chips (today, last 7 days, this month, ...) that set the from/to dates together.
+export function PeriodPresets() {
+  const { update, searchParams } = useQueryUpdater();
+  const from = searchParams.get("from") ?? "";
+  const to = searchParams.get("to") ?? "";
+  const options = [{ value: "", label: "All time", range: { from: "", to: "" } }, ...PERIODS.map((p) => ({ ...p, range: periodRange(p.value) }))];
+
+  return (
+    <div role="radiogroup" aria-label="Period" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
+      {options.map((o) => {
+        const active = from === o.range.from && to === o.range.to;
+        return (
+          <button
+            key={o.value || "all"}
+            type="button"
+            role="radio"
+            aria-checked={active}
+            onClick={() => update({ from: o.range.from, to: o.range.to })}
+            className={`min-h-10 shrink-0 rounded-full border px-4 text-sm font-medium transition ${
+              active ? "border-primary bg-primary text-on-primary" : "border-line-strong bg-surface text-ink hover:bg-subtle"
+            }`}
+          >
+            {o.label}
+          </button>
+        );
+      })}
     </div>
   );
 }
