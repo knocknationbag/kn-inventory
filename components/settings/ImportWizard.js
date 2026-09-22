@@ -92,7 +92,10 @@ export default function ImportWizard() {
     <form action={formAction} className="max-w-2xl space-y-6" noValidate>
       <section className="rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-5">
         <h2 className="mb-1 text-base font-semibold">1. Choose your backup files</h2>
-        <p className="mb-4 text-sm text-muted">Choose either or both. See the instructions below for how to create them from the old system.</p>
+        <p className="mb-4 text-sm text-muted">
+          Choose either or both (each under 1.5 MB — see the instructions below for how to create them). Got a bigger file? Split it by date and import in a few
+          rounds; already-imported records are skipped automatically.
+        </p>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="inventory_file" className="mb-1.5 block text-sm font-medium text-ink">

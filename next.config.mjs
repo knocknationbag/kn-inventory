@@ -12,8 +12,9 @@ const nextConfig = {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
   experimental: {
-    // Legacy backup files (uploaded on the Import page) can run a few MB for a shop with years of history.
-    serverActions: { bodySizeLimit: "20mb" },
+    // Vercel Functions have a fixed 4.5MB request-body ceiling that this can't raise; kept just under
+    // it (and above the app-level checks in lib/actions/legacyImport.js) so local dev matches production.
+    serverActions: { bodySizeLimit: "4mb" },
   },
 };
 

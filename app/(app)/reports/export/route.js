@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { toCsv } from "@/lib/csv";
 import { todayISO } from "@/lib/format";
 import { EXPORTS } from "@/lib/reports/exports";
+import { streamText } from "@/lib/streamResponse";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -9,6 +10,7 @@ export const dynamic = "force-dynamic";
 const FILTER_KEYS = ["from", "to", "q", "kind", "category", "supplier", "filter"];
 
 // Downloads a report as CSV (opens in Excel/Sheets) or JSON. Only the signed-in owner can read any data.
+// Streamed rather than buffered so a large export never hits Vercel's 4.5MB buffered-response limit.
 export async function GET(request) {
   const supabase = await createClient();
   const {
@@ -25,12 +27,11 @@ export async function GET(request) {
   const rows = await definition.load(supabase, filters);
   const stamp = todayISO();
   const format = searchParams.get("format") === "json" ? "json" : "csv";
-  const headers = { "Cache-Control": "no-store", "Content-Disposition": `attachment; filename="${definition.filename}-${stamp}.${format}"` };
 
   if (format === "json") {
     const body = JSON.stringify({ report: definition.filename, generated_on: stamp, filters, rows }, null, 2);
-    return new Response(body, { headers: { ...headers, "Content-Type": "application/json; charset=utf-8" } });
+    return streamText(body, { contentType: "application/json; charset=utf-8", filename: `${definition.filename}-${stamp}.json` });
   }
   // The leading BOM makes Excel read the file as UTF-8.
-  return new Response(`﻿${toCsv(definition.columns, rows)}`, { headers: { ...headers, "Content-Type": "text/csv; charset=utf-8" } });
+  return streamText(`﻿${toCsv(definition.columns, rows)}`, { contentType: "text/csv; charset=utf-8", filename: `${definition.filename}-${stamp}.csv` });
 }
