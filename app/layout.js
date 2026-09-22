@@ -1,4 +1,5 @@
 import { Outfit } from "next/font/google";
+import SkipLink from "@/components/ui/SkipLink";
 import { ToastProvider } from "@/components/ui/Toast";
 import "./globals.css";
 
@@ -44,6 +45,7 @@ export default function RootLayout({ children }) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-dvh antialiased">
+        <SkipLink />
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>

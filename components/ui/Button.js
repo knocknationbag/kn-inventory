@@ -11,7 +11,7 @@ const VARIANTS = {
 const SIZES = {
   md: "min-h-11 px-5 text-[15px]",
   lg: "min-h-12 px-6 text-base",
-  sm: "min-h-9 px-4 text-sm",
+  sm: "min-h-10 px-4 text-sm",
 };
 
 export function buttonClass({ variant = "primary", size = "md", className = "" } = {}) {

@@ -17,7 +17,7 @@ export default async function LoginPage() {
   }
 
   return (
-    <main className="relative flex min-h-dvh items-center justify-center px-4 py-10">
+    <main id="main" tabIndex={-1} className="relative flex min-h-dvh items-center justify-center px-4 py-10 outline-none">
       <div className="absolute right-3 top-[calc(0.75rem+env(safe-area-inset-top))]">
         <ThemeSwitcher />
       </div>

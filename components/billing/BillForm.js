@@ -137,7 +137,7 @@ export default function BillForm({ action, bill, products, customerNames, invoic
                         role="radio"
                         aria-checked={line.kind === value}
                         onClick={() => setKind(line.key, value)}
-                        className={`min-h-9 rounded-full px-4 transition ${line.kind === value ? "bg-surface text-ink shadow-card" : "text-muted"}`}
+                        className={`min-h-10 rounded-full px-4 transition ${line.kind === value ? "bg-surface text-ink shadow-card" : "text-muted"}`}
                       >
                         {label}
                       </button>
