@@ -33,9 +33,23 @@ export default function ShopForm({ settings }) {
             <TextField label="Shop name" name="shop_name" required defaultValue={v.shop_name ?? ""} error={errors.shop_name} maxLength={120} />
           </div>
           <TextField label="Phone numbers" name="phones" defaultValue={v.phones ?? ""} error={errors.phones} placeholder="9321777582 | 8080828615" maxLength={100} />
-          <TextField label="GST number" name="gst_number" defaultValue={v.gst_number ?? ""} error={errors.gst_number} placeholder="Optional" maxLength={30} />
+          <TextField label="GSTIN" name="gst_number" defaultValue={v.gst_number ?? ""} error={errors.gst_number} placeholder="27ABCDE1234F1Z5" maxLength={15} hint="Printed on Normal Bills and GST Tax Invoices." />
           <div className="sm:col-span-2">
             <TextField label="Address" name="address" defaultValue={v.address ?? ""} error={errors.address} maxLength={500} hint="Printed on every bill." />
+          </div>
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-5">
+        <h2 className="mb-1 text-base font-semibold">GST invoice details</h2>
+        <p className="mb-4 text-sm text-muted">Printed on GST Tax Invoices only. All optional.</p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <TextField label="PAN" name="pan" defaultValue={v.pan ?? ""} error={errors.pan} placeholder="ABCDE1234F" maxLength={10} />
+          <TextField label="Bank name" name="bank_name" defaultValue={v.bank_name ?? ""} error={errors.bank_name} maxLength={120} />
+          <TextField label="Bank account number" name="bank_account" inputMode="numeric" defaultValue={v.bank_account ?? ""} error={errors.bank_account} maxLength={40} />
+          <TextField label="IFSC code" name="bank_ifsc" defaultValue={v.bank_ifsc ?? ""} error={errors.bank_ifsc} placeholder="HDFC0001234" maxLength={11} />
+          <div className="sm:col-span-2">
+            <TextField label="Bank branch" name="bank_branch" defaultValue={v.bank_branch ?? ""} error={errors.bank_branch} maxLength={120} />
           </div>
         </div>
       </section>

@@ -40,7 +40,7 @@ export default async function DashboardPage() {
       <PageHeader title="Dashboard" description={formatDate(d.today)} />
 
       <div className="-mx-4 mb-5 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
-        <Button href="/sales/new" variant="gold" size="sm" className="shrink-0">
+        <Button href="/sales/new-bill" variant="gold" size="sm" className="shrink-0">
           <Icon name="plus" size={18} />
           New bill
         </Button>
@@ -66,7 +66,7 @@ export default async function DashboardPage() {
               <b>2.</b> Record stock you buy under <Link href="/purchases/new" className="font-semibold underline">Purchases</Link>.
             </li>
             <li>
-              <b>3.</b> Make your first <Link href="/sales/new" className="font-semibold underline">bill</Link>. Stock is deducted automatically.
+              <b>3.</b> Make your first <Link href="/sales/new-bill" className="font-semibold underline">bill</Link>. Stock is deducted automatically.
             </li>
           </ol>
         </section>

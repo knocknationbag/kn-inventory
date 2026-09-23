@@ -19,7 +19,7 @@ export default function Sidebar({ footer }) {
         <span className="flex size-10 items-center justify-center rounded-xl bg-primary text-sm font-bold text-on-primary lg:hidden">KN</span>
       </Link>
 
-      <Link href="/sales/new" className={buttonClass({ variant: "gold", className: "mb-5 w-full !px-0 lg:!px-5" })} aria-label="New bill">
+      <Link href="/sales/new-bill" className={buttonClass({ variant: "gold", className: "mb-5 w-full !px-0 lg:!px-5" })} aria-label="New bill">
         <Icon name="plus" size={20} />
         <span className="hidden lg:inline">New Bill</span>
       </Link>

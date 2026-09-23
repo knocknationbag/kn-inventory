@@ -14,7 +14,7 @@ import { PAGE_SIZE, getProduct, getProductLedger, parsePage } from "@/lib/data/p
 import { formatCurrency, formatDate, formatNumber } from "@/lib/format";
 import { createClient } from "@/lib/supabase/server";
 
-const KIND_LABEL = { purchase: "Purchase", sale: "Sale", return: "Return" };
+const KIND_LABEL = { purchase: "Purchase", sale: "Sale", gst_sale: "Sale (GST)", return: "Return" };
 const RETURN_REASON = { customer_return: "Customer return", rto: "RTO / delivery failure", defective: "Defective / damaged" };
 
 function party(m) {
@@ -25,6 +25,7 @@ function party(m) {
 const MOVEMENT_HREF = {
   purchase: (id) => `/purchases/${id}`,
   sale: (id) => `/sales/${id}`,
+  gst_sale: (id) => `/sales/gst/${id}`,
   return: (id) => `/returns/${id}/edit`,
 };
 

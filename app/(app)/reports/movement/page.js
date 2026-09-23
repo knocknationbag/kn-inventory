@@ -27,8 +27,8 @@ const KINDS = [
   { value: "return", label: "Returns" },
   { value: "sale", label: "Stock out" },
 ];
-const KIND_LABEL = { purchase: "Purchase", sale: "Sale", return: "Return" };
-const HREF = { purchase: (id) => `/purchases/${id}`, sale: (id) => `/sales/${id}`, return: (id) => `/returns/${id}/edit` };
+const KIND_LABEL = { purchase: "Purchase", sale: "Sale", gst_sale: "Sale (GST)", return: "Return" };
+const HREF = { purchase: (id) => `/purchases/${id}`, sale: (id) => `/sales/${id}`, gst_sale: (id) => `/sales/gst/${id}`, return: (id) => `/returns/${id}/edit` };
 const party = (m) => (m.kind === "return" ? RETURN_REASON_LABEL[m.party] ?? m.party : m.party) || "-";
 const productName = (r) => [r.name, r.colour, r.size].filter(Boolean).join(" · ");
 

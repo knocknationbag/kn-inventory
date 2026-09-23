@@ -44,7 +44,7 @@ export default function MobileNav() {
           <Tab key={i.href} item={i} pathname={pathname} />
         ))}
         <Link
-          href="/sales/new"
+          href="/sales/new-bill"
           aria-label="New bill"
           aria-current={billActive ? "page" : undefined}
           className="relative -mt-6 flex flex-col items-center justify-center"
