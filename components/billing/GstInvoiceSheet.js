@@ -5,7 +5,7 @@ import { amountInWords } from "@/lib/numberToWords";
 
 const GOLD = "#d4af37";
 const MIN_ROWS = 3;
-const TAGLINE = "Mfg. School Bags, College Bags & Complimentary Items";
+const TAGLINE = "Mfg. School Bag, College Bags & Complimentary Items";
 
 function Kv({ label, value, bold }) {
   return (
