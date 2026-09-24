@@ -11,6 +11,7 @@ import { deleteGstInvoice, finalizeGstInvoice } from "@/lib/actions/gstInvoices"
 import { getGstInvoice } from "@/lib/data/gstInvoices";
 import { getSettings } from "@/lib/data/sales";
 import { formatDate } from "@/lib/format";
+import { buildUpiQrDataUrl } from "@/lib/upiQr";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "GST invoice" };
@@ -22,6 +23,7 @@ export default async function GstInvoiceDetailPage({ params }) {
   if (!found) notFound();
   const { invoice, items } = found;
   const settings = await getSettings(supabase);
+  const qrDataUrl = await buildUpiQrDataUrl({ upiId: settings.upi_id, payeeName: settings.upi_payee_name || settings.shop_name, amount: invoice.grand_total });
 
   return (
     <>
@@ -66,7 +68,7 @@ export default async function GstInvoiceDetailPage({ params }) {
         )}
       </div>
 
-      <GstInvoiceSheet invoice={invoice} items={items} settings={settings} />
+      <GstInvoiceSheet invoice={invoice} items={items} settings={settings} qrDataUrl={qrDataUrl} />
 
       <section className="mt-8 rounded-2xl border border-line bg-surface p-4 shadow-card print:hidden">
         <h2 className="text-base font-semibold">Delete this invoice</h2>

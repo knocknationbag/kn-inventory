@@ -56,6 +56,15 @@ export default function ShopForm({ settings }) {
       </section>
 
       <section className="rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-5">
+        <h2 className="mb-1 text-base font-semibold">UPI payment QR</h2>
+        <p className="mb-4 text-sm text-muted">Shown as a scannable &ldquo;Scan &amp; Pay&rdquo; QR on GST Tax Invoices. Leave the UPI ID empty to hide it.</p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <TextField label="UPI ID" name="upi_id" defaultValue={v.upi_id ?? ""} error={errors.upi_id} placeholder="name@bank" maxLength={100} />
+          <TextField label="UPI payee name" name="upi_payee_name" defaultValue={v.upi_payee_name ?? ""} error={errors.upi_payee_name} maxLength={120} hint="Shown to the customer's UPI app when they scan." />
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-5">
         <h2 className="mb-4 text-base font-semibold">Billing defaults</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <TextField label="Default GST %" name="default_gst_rate" type="number" inputMode="decimal" min="0" max="100" step="0.01" defaultValue={v.default_gst_rate ?? 0} error={errors.default_gst_rate} hint="Pre-filled on a new bill." />
