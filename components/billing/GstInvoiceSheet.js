@@ -5,6 +5,7 @@ import { amountInWords } from "@/lib/numberToWords";
 
 const GOLD = "#d4af37";
 const MIN_ROWS = 3;
+const TAGLINE = "Mfg. School Bags, College Bags & Complimentary Items";
 
 function Kv({ label, value, bold }) {
   return (
@@ -52,25 +53,33 @@ export default function GstInvoiceSheet({ invoice, items, settings }) {
       id="invoice"
       className="mx-auto w-full max-w-[210mm] bg-white p-3 text-neutral-900 shadow-card ring-1 ring-black/5 sm:p-8 print:max-w-none print:p-0 print:shadow-none print:ring-0"
     >
-      <header className="relative border-b-[3px] pb-3 text-center" style={{ borderColor: GOLD }}>
-        <img src="/invoice/logo.png" alt="" className="absolute left-0 top-0 size-12 object-contain sm:size-[4.5rem]" />
-        <div className="px-14 sm:px-24">
-          <h1 className="text-lg font-extrabold uppercase tracking-wide sm:text-2xl">{settings.shop_name}</h1>
-          <p className="mt-1 text-[10px] leading-snug text-neutral-600 sm:text-xs">{settings.address}</p>
-          {settings.phones && <p className="mt-0.5 text-[11px] font-semibold sm:text-sm">Mob.: {settings.phones}</p>}
-          <p className="mt-0.5 text-[11px] sm:text-xs">
-            {settings.pan && (
-              <>
-                PAN No: <b>{settings.pan}</b>
-              </>
-            )}
-            {settings.pan && settings.gst_number && <span className="mx-1.5 text-neutral-400">|</span>}
-            {settings.gst_number && (
-              <>
-                GSTIN: <b>{settings.gst_number}</b>
-              </>
-            )}
-          </p>
+      <header className="border-b-[3px] pb-3" style={{ borderColor: GOLD }}>
+        <div className="flex items-start justify-between gap-2">
+          <img src="/invoice/gst-bill-logo-left.jpeg" alt="" className="h-11 w-auto shrink-0 object-contain sm:h-16" />
+          <div className="min-w-0 flex-1 text-center">
+            <h1 className="text-lg font-extrabold uppercase tracking-wide sm:text-2xl">{settings.shop_name}</h1>
+            <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-neutral-500 sm:text-[11px]">{TAGLINE}</p>
+            <p className="mt-1 text-[10px] leading-snug text-neutral-600 sm:text-xs">{settings.address}</p>
+            <p className="mt-0.5 text-[11px] sm:text-xs">
+              {settings.email && <>Email: {settings.email}</>}
+              {settings.email && settings.phones && <span className="mx-1.5 text-neutral-400">|</span>}
+              {settings.phones && <>Mob.: {settings.phones}</>}
+            </p>
+            <p className="mt-0.5 text-[11px] sm:text-xs">
+              {settings.pan && (
+                <>
+                  PAN No: <b>{settings.pan}</b>
+                </>
+              )}
+              {settings.pan && settings.gst_number && <span className="mx-1.5 text-neutral-400">|</span>}
+              {settings.gst_number && (
+                <>
+                  GSTIN: <b>{settings.gst_number}</b>
+                </>
+              )}
+            </p>
+          </div>
+          <img src="/invoice/gst-bill-logo-right.jpeg" alt="" className="h-11 w-auto shrink-0 object-contain sm:h-16" />
         </div>
       </header>
 
@@ -178,22 +187,22 @@ export default function GstInvoiceSheet({ invoice, items, settings }) {
               <p className="mb-1 font-bold uppercase tracking-wide">Bank details</p>
               {settings.bank_name && (
                 <p>
-                  Bank name: <b>{settings.bank_name}</b>
+                  Bank Name : <b>{settings.bank_name}</b>
                 </p>
               )}
               {settings.bank_account && (
                 <p>
-                  Account number: <b>{settings.bank_account}</b>
+                  Bank Account Number : <b>{settings.bank_account}</b>
                 </p>
               )}
               {settings.bank_ifsc && (
                 <p>
-                  IFSC code: <b>{settings.bank_ifsc}</b>
+                  Bank IFSC Code : <b>{settings.bank_ifsc}</b>
                 </p>
               )}
               {settings.bank_branch && (
                 <p>
-                  Branch: <b>{settings.bank_branch}</b>
+                  Branch : <b>{settings.bank_branch}</b>
                 </p>
               )}
             </div>

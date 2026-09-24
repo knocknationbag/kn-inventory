@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
-const FILTER_KEYS = ["from", "to", "q", "kind", "category", "supplier", "filter"];
+const FILTER_KEYS = ["from", "to", "q", "kind", "category", "supplier", "filter", "date"];
 
 // Downloads a report as CSV (opens in Excel/Sheets) or JSON. Only the signed-in owner can read any data.
 // Streamed rather than buffered so a large export never hits Vercel's 4.5MB buffered-response limit.

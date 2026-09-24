@@ -2,6 +2,7 @@ import Link from "next/link";
 import PageHeader from "@/components/layout/PageHeader";
 import StockBadge from "@/components/products/StockBadge";
 import Button from "@/components/ui/Button";
+import ManualSortTable from "@/components/products/ManualSortTable";
 import DataTable from "@/components/ui/DataTable";
 import Icon from "@/components/ui/Icon";
 import { ChipGroup, FilterSelect, SearchInput } from "@/components/ui/ListControls";
@@ -66,6 +67,32 @@ export default async function ProductsPage({ searchParams }) {
     { key: "value", header: "Stock value", align: "right", cell: (p) => <span className="font-medium">{formatCurrency(p.stock_value)}</span> },
   ];
 
+  const renderCard = (p) => (
+    <Link href={`/products/${p.id}`} className="block rounded-2xl border border-line bg-surface p-4 shadow-card active:bg-subtle">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="truncate text-base font-semibold text-ink">{p.sku}</p>
+          <p className="truncate text-sm text-muted">{[p.name, productLabel(p)].filter(Boolean).join(" · ") || "-"}</p>
+        </div>
+        <div className="text-right">
+          <p className="text-2xl font-bold leading-none text-ink">{formatNumber(p.current_stock)}</p>
+          <p className="mt-1 text-[11px] uppercase tracking-wide text-muted">in stock</p>
+        </div>
+      </div>
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm">
+        <StockBadge stock={p.current_stock} isLow={p.is_low} />
+        <span className="text-muted">
+          {formatCurrency(p.purchase_rate)} each · <span className="font-medium text-ink">{formatCurrency(p.stock_value)}</span>
+        </span>
+      </div>
+      {(p.supplier_name || p.category_name) && (
+        <p className="mt-2 truncate text-xs text-muted">{[p.category_name, p.supplier_name].filter(Boolean).join(" · ")}</p>
+      )}
+    </Link>
+  );
+
+  const manual = params.sort === "manual";
+
   return (
     <>
       <PageHeader
@@ -120,34 +147,16 @@ export default async function ProductsPage({ searchParams }) {
         )
       ) : (
         <>
-          <DataTable
-            columns={columns}
-            rows={rows}
-            getKey={(p) => p.id}
-            renderCard={(p) => (
-              <Link href={`/products/${p.id}`} className="block rounded-2xl border border-line bg-surface p-4 shadow-card active:bg-subtle">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="truncate text-base font-semibold text-ink">{p.sku}</p>
-                    <p className="truncate text-sm text-muted">{[p.name, productLabel(p)].filter(Boolean).join(" · ") || "-"}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-2xl font-bold leading-none text-ink">{formatNumber(p.current_stock)}</p>
-                    <p className="mt-1 text-[11px] uppercase tracking-wide text-muted">in stock</p>
-                  </div>
-                </div>
-                <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm">
-                  <StockBadge stock={p.current_stock} isLow={p.is_low} />
-                  <span className="text-muted">
-                    {formatCurrency(p.purchase_rate)} each · <span className="font-medium text-ink">{formatCurrency(p.stock_value)}</span>
-                  </span>
-                </div>
-                {(p.supplier_name || p.category_name) && (
-                  <p className="mt-2 truncate text-xs text-muted">{[p.category_name, p.supplier_name].filter(Boolean).join(" · ")}</p>
-                )}
-              </Link>
-            )}
-          />
+          {manual ? (
+            <ManualSortTable
+              key={rows.map((p) => p.id).join(",")}
+              columns={columns.map(({ key, header, align }) => ({ key, header, align }))}
+              items={rows.map((p) => ({ id: p.id, label: p.sku, cells: columns.map((c) => c.cell(p)), card: renderCard(p) }))}
+              note={pageCount > 1 || hasFilters ? "Only the products shown here move; the rest keep their places." : ""}
+            />
+          ) : (
+            <DataTable columns={columns} rows={rows} getKey={(p) => p.id} renderCard={renderCard} />
+          )}
           <Pagination page={page} pageCount={pageCount} total={count} pageSize={PAGE_SIZE} basePath="/products" params={params} />
         </>
       )}

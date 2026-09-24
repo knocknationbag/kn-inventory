@@ -33,6 +33,7 @@ export default function ShopForm({ settings }) {
             <TextField label="Shop name" name="shop_name" required defaultValue={v.shop_name ?? ""} error={errors.shop_name} maxLength={120} />
           </div>
           <TextField label="Phone numbers" name="phones" defaultValue={v.phones ?? ""} error={errors.phones} placeholder="9321777582 | 8080828615" maxLength={100} />
+          <TextField label="Email" name="email" type="email" defaultValue={v.email ?? ""} error={errors.email} placeholder="shop@example.com" maxLength={100} hint="Printed on GST Tax Invoices." />
           <TextField label="GSTIN" name="gst_number" defaultValue={v.gst_number ?? ""} error={errors.gst_number} placeholder="27ABCDE1234F1Z5" maxLength={15} hint="Printed on Normal Bills and GST Tax Invoices." />
           <div className="sm:col-span-2">
             <TextField label="Address" name="address" defaultValue={v.address ?? ""} error={errors.address} maxLength={500} hint="Printed on every bill." />

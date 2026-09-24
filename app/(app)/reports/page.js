@@ -6,6 +6,7 @@ export const metadata = { title: "Reports" };
 
 const REPORTS = [
   { href: "/reports/sales", icon: "receipt", title: "Sales", text: "Sales by day, by product, and every bill, for any dates." },
+  { href: "/reports/sales-by-date", icon: "file", title: "Sales by date", text: "What sold on one exact date, who bought it, and on which bill." },
   { href: "/reports/purchases", icon: "download", title: "Purchases", text: "What you bought, from whom, and what it cost." },
   { href: "/reports/inventory", icon: "package", title: "Inventory and stock value", text: "Every product: stock in hand, value at cost, and how much was sold." },
   { href: "/reports/movement", icon: "undo", title: "Stock movement", text: "Every stock in and out with a running balance, by date or by product." },
