@@ -57,10 +57,11 @@ export default function ProductForm({ action, product, categories, suppliers, su
             inputMode="numeric"
             min="0"
             step="1"
-            defaultValue={v.opening_stock ?? 0}
+            defaultValue={state.values || !product ? v.opening_stock ?? 0 : product.current_stock}
             error={errors.opening_stock}
-            hint={product ? `Stock you had before any purchases or sales. Current stock is ${product.current_stock}.` : "Bags you already have in hand right now."}
+            hint={product ? `Current stock is ${product.current_stock}. Enter a new number to set current stock to it. Past bills and purchases are not changed.` : "Bags you already have in hand right now."}
           />
+          {product && <input type="hidden" name="stock_before" value={product.current_stock} />}
           <TextField label="GST %" name="gst_rate" type="number" inputMode="decimal" min="0" max="100" step="0.01" defaultValue={v.gst_rate ?? 0} error={errors.gst_rate} />
           <TextField label="HSN code" name="hsn_code" inputMode="numeric" defaultValue={v.hsn_code ?? ""} error={errors.hsn_code} maxLength={8} placeholder="4202" hint="Optional. Pre-fills GST Tax Invoices." />
           <TextField label="Purchase rate (₹)" name="purchase_rate" type="number" inputMode="decimal" min="0" step="0.01" defaultValue={v.purchase_rate ?? 0} error={errors.purchase_rate} hint="What you pay per bag. Used for stock value." />
