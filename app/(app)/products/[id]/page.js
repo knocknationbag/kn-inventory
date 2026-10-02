@@ -14,7 +14,7 @@ import { PAGE_SIZE, getProduct, getProductLedger, parsePage } from "@/lib/data/p
 import { formatCurrency, formatDate, formatNumber } from "@/lib/format";
 import { createClient } from "@/lib/supabase/server";
 
-const KIND_LABEL = { purchase: "Purchase", sale: "Sale", gst_sale: "Sale (GST)", return: "Return", adjustment: "Stock edit" };
+const KIND_LABEL = { purchase: "Purchase", sale: "Sale", gst_sale: "Sale (GST)", return: "Return" };
 const RETURN_REASON = { customer_return: "Customer return", rto: "RTO / delivery failure", defective: "Defective / damaged" };
 
 function party(m) {
@@ -60,8 +60,6 @@ export default async function ProductDetailPage({ params, searchParams }) {
   if (!product) notFound();
   const ledger = await getProductLedger(supabase, id, page);
   const pageCount = Math.max(1, Math.ceil(ledger.count / PAGE_SIZE));
-  // Net of every "set stock" edit, so the breakdown below still adds up to current stock.
-  const adjusted = product.current_stock - product.opening_stock - product.purchased_qty - product.returned_qty + product.sold_qty;
 
   const columns = [
     { key: "date", header: "Date", cell: (m) => formatDate(m.movement_date) },
@@ -102,13 +100,12 @@ export default async function ProductDetailPage({ params, searchParams }) {
 
       <section className="mb-6 rounded-2xl border border-line bg-surface p-4 shadow-card">
         <h2 className="mb-3 text-base font-semibold">How the stock adds up</h2>
-        <dl className={`grid grid-cols-2 gap-x-6 gap-y-2 text-sm ${adjusted ? "sm:grid-cols-6" : "sm:grid-cols-5"}`}>
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-5">
           {[
             ["Opening", product.opening_stock],
             ["+ Purchased", product.purchased_qty],
             ["+ Returned (restocked)", product.returned_qty],
             ["− Sold", product.sold_qty],
-            ...(adjusted ? [["± Stock edits", adjusted]] : []),
             ["= Current", product.current_stock],
           ].map(([label, value]) => (
             <div key={label}>
